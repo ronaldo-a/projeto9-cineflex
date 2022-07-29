@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react"
-//import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import axios from "axios"
 import styled from "styled-components"
 
 export default function MovieSessions() {
     
-    //const params = useParams()
+    const params = useParams()
     const [sessions, setSessions] = useState([])
     const [movieName, setMovieName] = useState("")
     const [moviePoster, setMoviePoster] = useState("")
 
     useEffect(() =>
     {
-        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/2/showtimes`);
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/${params.filmeId}/showtimes`);
         promise.then((promise) => {
             setSessions(promise.data.days);
             setMovieName(promise.data.title);
@@ -41,7 +41,7 @@ function SessionsDay(props) {
         <DaySessions>
             <Day>{`${props.weekday} - ${props.date}`}</Day>
             <Times>
-                {props.showtime.map((showtime, index) => <Time hora={showtime.name} key={index}/>)}
+                {props.showtime.map((showtime) => <Time hora={showtime.name} id={showtime.id} key={showtime.id}/>)}
             </Times>
         </DaySessions>
     )
@@ -49,7 +49,9 @@ function SessionsDay(props) {
 
 function Time(props) {
     return (
-        <Hora>{props.hora}</Hora>
+        <Link to={`/assentos/${props.id}`}>
+            <Hora>{props.hora}</Hora>
+        </Link>
     )
 }
 
