@@ -11,7 +11,7 @@ export default function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<MainPage/>} />
-                <Route path="/sessoes/:idFilme" element={<MovieSessions/>}/>
+                <Route path="/sessoes/:filmeId" element={<MovieSessions/>}/>
             </Routes>
         
         </BrowserRouter>

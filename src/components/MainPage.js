@@ -8,7 +8,7 @@ export default function MainPage() {
     const [movies, setMovies] = useState([]) 
     
     useEffect(() => 
-        {const promise = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
+        {const promise = axios.get("https://mock-api.driven.com.br/api/v7/cineflex/movies");
         promise.then((data) => setMovies(data.data))}, 
         []
     )
@@ -26,7 +26,7 @@ export default function MainPage() {
 // UI/UX
 function Movie(props) {
     return (
-        <Link to={`/sessoes/:${props.id}`}>
+        <Link to={`/sessoes/${props.id}`}>
             <MovieCard>
                 <img src={props.img} alt={props.title}/>
             </MovieCard>  
