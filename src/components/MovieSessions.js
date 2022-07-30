@@ -18,7 +18,7 @@ export default function MovieSessions() {
             setMovieName(promise.data.title);
             setMoviePoster(promise.data.posterURL)    
         })
-    }, [])
+    }, [params.filmeId])
 
     return(
         <>
@@ -74,7 +74,6 @@ const PageFunction = styled.div`
         color: #293845;
     }
 `
-
 const SessionsContainer = styled.div`
     width: 100vw;
     margin-left: 23px;
@@ -88,7 +87,6 @@ const SessionsContainer = styled.div`
 const DaySessions = styled.div`
     margin-bottom: 23px;
 `
-
 const Day = styled.div`
     font-family:'Roboto', sans-serif;
     font-weight: 400;
@@ -98,7 +96,6 @@ const Day = styled.div`
 
     margin-bottom: 22px;
 `
-
 const Times = styled.div`
    display: flex;
 `
