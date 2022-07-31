@@ -15,6 +15,7 @@ export default function SessionSits() {
     const [moviePoster, setMoviePoster] = useState("")
     const [sessionDay, setSessionDay] = useState("")
     const [sessionTime, setSessionTime] = useState("")
+    let selecteds = []
 
     useEffect(() => {
         let promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${params.sessaoId}/seats`);
@@ -27,21 +28,31 @@ export default function SessionSits() {
         })
     }, [params.sessaoId])
 
+    let seats = sits.map((sit) => <Sit 
+                                    name={sit.name} 
+                                    available={sit.isAvailable} 
+                                    id={sit.name} 
+                                    key={sit.id}
+                                    selecteds={selecteds}/>)
+
     return (
         <>
             <PageFunction><h3>Selecione o(s) assento(s)</h3></PageFunction>
             <Content>
                 <SitsContainer>
-                    {sits.map((sit) => <Sit name={sit.name} available={sit.isAvailable} id={sit.id} key={sit.id}/>)}
+                    {seats}    
                 </SitsContainer>
                 <SitsLegend />
-                <ClientInfo />
+                <ClientInfo selecteds={selecteds}/>
             </Content>
             <SessionInfo moviePoster={moviePoster} movieName={movieName} sessionDay={sessionDay} sessionTime={sessionTime} />
         </>
+
+        
     )
 
 }
+
 
 const Content = styled.div`
     overflow-y: scroll;

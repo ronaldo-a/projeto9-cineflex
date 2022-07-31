@@ -1,18 +1,22 @@
 import styled from "styled-components"
 
-export default function ClientInfo() {
+export default function ClientInfo(props) {
     return (
         <InputsContainer>
             <label for="name">Nome do Comprador</label>
             <input type="text" id="name" />
             <label for="CPF">CPF do comprador</label>
             <input type="number" />
-            <button type="submit">Reservar assento(s)</button>
+            <button onClick={() => sel(props.selecteds)}>Reservar assento(s)</button>
         </InputsContainer>
     )
 }
 
-const InputsContainer = styled.form`
+function sel (seats) {
+    console.log(seats)
+}
+
+const InputsContainer = styled.div`
     width: 80vw;
     display: flex;
     flex-direction: column;
