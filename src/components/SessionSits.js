@@ -16,6 +16,7 @@ export default function SessionSits() {
     const [sessionDay, setSessionDay] = useState("")
     const [sessionTime, setSessionTime] = useState("")
     let selecteds = []
+    let sels = []
 
     useEffect(() => {
         let promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${params.sessaoId}/seats`);
@@ -33,7 +34,9 @@ export default function SessionSits() {
                                     available={sit.isAvailable} 
                                     id={sit.name} 
                                     key={sit.id}
-                                    selecteds={selecteds}/>)
+                                    key1={sit.id}
+                                    selecteds={selecteds}
+                                    sels={sels}/>)
 
     return (
         <>
@@ -43,7 +46,7 @@ export default function SessionSits() {
                     {seats}    
                 </SitsContainer>
                 <SitsLegend />
-                <ClientInfo selecteds={selecteds}/>
+                <ClientInfo selecteds={selecteds} sels={sels} movieName={movieName} sessionDay={sessionDay} sessionTime={sessionTime}/>
             </Content>
             <SessionInfo moviePoster={moviePoster} movieName={movieName} sessionDay={sessionDay} sessionTime={sessionTime} />
         </>

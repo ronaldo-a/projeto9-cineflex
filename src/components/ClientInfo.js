@@ -1,20 +1,40 @@
 import styled from "styled-components"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import axios from "axios"
 
 export default function ClientInfo(props) {
+
+    const navigate = useNavigate()
+    const [name, setName] = useState("")
+    const [CPF, setCPF] = useState("")
+
+    function sucess (e) {
+
+        e.preventDefault()
+
+        let orderPost = {ids: props.selecteds, name: name, cpf: CPF}
+        let orderComplete = {ids: props.sels, name: name, cpf: CPF, movie: props.movieName, day: props.sessionDay, time: props.sessionTime}
+        
+        let promise = axios.post("https://mock-api.driven.com.br/api/v7/cineflex/seats/book-many", orderPost)
+
+        promise.then((res) => navigate("/sucesso", {state: orderComplete}))
+    }
+
     return (
         <InputsContainer>
-            <label for="name">Nome do Comprador</label>
-            <input type="text" id="name" />
-            <label for="CPF">CPF do comprador</label>
-            <input type="number" />
-            <button onClick={() => sel(props.selecteds)}>Reservar assento(s)</button>
+            <form onSubmit={sucess}>
+                <label for="name">Nome do Comprador</label>
+                <input type="text" id="name" placeholder="Digite seu nome..." onChange={e => setName(e.target.value)} required/>
+                <label for="CPF">CPF do comprador</label>
+                <input type="number" id="CPF" placeholder="Digite seu CPF..." onChange={e => setCPF(e.target.value)} required/>
+                <button>Reservar assento(s)</button>
+            </form>
         </InputsContainer>
     )
 }
 
-function sel (seats) {
-    console.log(seats)
-}
+
 
 const InputsContainer = styled.div`
     width: 80vw;
